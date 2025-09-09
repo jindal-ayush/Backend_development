@@ -6,9 +6,16 @@ const userRoutes =  require('./routes/userRoutes');
 const app = express();
 connectDB();
 app.use(cors());
+
 app.use(express.json());
 
+// app.use((req, res , next)=>{
+//     console.log("hello form middleware");
+//     next();
+// })
+
 app.use('/api/users', userRoutes);
+
 
 const PORT = 5000;
 app.listen(PORT ,()=>{
