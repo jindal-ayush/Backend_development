@@ -1,27 +1,19 @@
 import './App.css'
-import { useEffect, useState } from 'react';
-import axios from "axios";
-import UserForm from "./components/User_form.jsx";
 
-import UserList from './components/UserList';
+import Users from './Users';
+import CreateUser from './CreateUser';
+import UpdateUser from './UpdateUser';
+import Table from './components/User_form';
 
-
-function App() {
-const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/users")
-      .then(res => setUsers(res.data));
-  }, []);
-
+function App() {  
   return (
     <div>
-      <h1>MERN CRUD App</h1>
-      <UserForm setUsers={setUsers} />
-      <UserList users={users} setUsers={setUsers} />
+
+     <Table/>
+      <Users/>
+      <CreateUser/>
+    <UpdateUser/>
     </div>
   );
 }
-
-
 export default App;
