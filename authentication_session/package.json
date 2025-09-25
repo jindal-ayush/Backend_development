@@ -1,0 +1,19 @@
+{
+  "name": "authentication_session",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  
+  "scripts": {  
+    "start": "node index",
+    "dev": "node --watch index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.1",
+  "dependencies": {
+    "express": "~4.21.2"
+  }
+}

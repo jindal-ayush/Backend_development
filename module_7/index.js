@@ -5,27 +5,35 @@ const app = express();
 const PORT = 8000;
 app.use(express.json());
 
-const DIARY = {}
-const Email =  new Set();
+const diary = {}
+const EMAIL =  new Set();
 //suppose email is unique car number
-app.post('/', (req, res)=>{
-    const {name , email , password} = req.body;
-    if(Email.has(email))
-    {
-        return res.status(500).json({error: "user email already taken"})
-    }
-    //create a token for user
-    const token = `${Date.now()}`;
 
-    //do not entry in dairy
-    DIARY[token] = {name , email , password};
-    Email.add(email);
-    return res.json({status: 'success', token})
-})   
-app.get('me', (req, res)=>{
-    const {token} =  req.body;
-    
+app.post('/signup', (req,res)=>{
+    const {name , email , password}=  req.body;
+    if(EMAIL.has(email))
+    {
+        return res.status(400).json({error : 'Email already taken'});
+    }
+    const token = `${Date.now()}`;
+    diary[token]  =  {name, email , password};
+    EMAIL.add(email);
+    return res.json({status : 'success', token});
+})  
+app.post('/me', (req,res)=>{
+    const {token} = req.body;
+    if(!token)
+    {
+        return res.status(400).json({error: 'missing token' })
+    }
+    if(!(token in diary) )
+    {
+        return res.status(400).json({error: 'invalid token'})
+    }
+    const entry = diary[token];
+    return res.json({data: entry})
 })
+
 app.listen(PORT, ()=>{
     console.log(`server is started on Port ${PORT}`)
 })
